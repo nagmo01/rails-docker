@@ -1,24 +1,37 @@
-# README
+dockerをインストールする
+https://matsuand.github.io/docs.docker.jp.onthefly/desktop/mac/install/ (macの場合)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+railsアプリを置きたいディレクトリに移動して
+``` 
+$ git clone https://github.com/nagmo01/rails-docker.git
+```
+でローカルにrailsの各種ファイルをコピーする
 
-Things you may want to cover:
+```
+$ docker-compose up -d
+```
+でrailsのコンテナとpostgreSQLのコンテナを起動する
+この後にもまだ操作をしたいため```-d```をつけてバックグラウンドで実行します。 
 
-* Ruby version
 
-* System dependencies
+```
+$ docker ps # rails-docker-webという名前の方のコンテナIDをコピーする
+$ docker exec -it <貼り付け> bash
+```
+とするとコンテナの中のシェルを操作できるようになるため、
+(root~と出てる)
+```
+$ rails db:create #database.ymlをもとにデータベースを作成
+$ rails db:migrate
+```
+を実行してから
+```
+$ exit 
+```
+で抜ける
 
-* Configuration
+ここからまたホスト側に戻る
 
-* Database creation
+```URL:localhost:3000```にアクセスしてみる。
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+エラーなど出ていなければ無事成功。
